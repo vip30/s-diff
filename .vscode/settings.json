@@ -1,0 +1,12 @@
+{
+  "cSpell.enableFiletypes": [
+    "EEx",
+    "elixir"
+  ],
+  "cSpell.words": [
+    "deps",
+    "doctest",
+    "rebar"
+  ],
+  "editor.formatOnSave": true
+}
