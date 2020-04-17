@@ -38,7 +38,7 @@ defmodule SDiff.MixProject do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README*", "LICENSE*", "CHANGELOG*"],
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["vip30"],
       licenses: ["MIT"],
       links: %{
