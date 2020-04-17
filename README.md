@@ -1,6 +1,6 @@
 # SDiff
 
-**TODO: Add description**
+Simple string diff plugin
 
 ## Installation
 
