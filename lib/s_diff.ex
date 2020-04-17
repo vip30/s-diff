@@ -4,7 +4,7 @@ defmodule SDiff do
   """
 
   @word_regex ~r/(^\s+|[()[\]{}'"]|\b)/
-  @line_regex ~r/(\n|\r\n)/
+  @line_regex ~r/(^\n|\r\n|\b)/
   @doc """
   string diff with myers_difference.
 
@@ -14,18 +14,18 @@ defmodule SDiff do
       [del: "a", ins: "b"]
 
   """
-  def diff(string1, string2), do: diff(string1, string2, :char)
+  def diff(string1, string2), do: diff_char(string1, string2)
 
   @doc """
   string diff with myers_difference. (Default options)
 
   ## Examples
 
-      iex> SDiff.diff("a", "b", :char)
+      iex> SDiff.diff_char("a", "b")
       [del: "a", ins: "b"]
 
   """
-  def diff(string1, string2, :char) do
+  def diff_char(string1, string2) do
     String.myers_difference(string1, string2)
   end
 
@@ -34,11 +34,11 @@ defmodule SDiff do
 
   ## Examples
 
-      iex> SDiff.diff("aa bb", "aa cc", :word)
-      [eq: ["aa", " "], del: ["bb"], ins: ["cc"]]
+      iex> SDiff.diff_word("aa bb", "aa cc")
+      [eq: "aa ", del: "bb", ins: "cc"]
 
   """
-  def diff(string1, string2, :word) do
+  def diff_word(string1, string2) do
     string1
     |> String.split(@word_regex)
     |> remove_empty
@@ -55,11 +55,11 @@ defmodule SDiff do
 
   ## Examples
 
-      iex> SDiff.diff("aa bb", "aa cc", :line)
-      [del: "aa bb", ins: "aa cc"]
+      iex> SDiff.diff_line("aa bb", "aa cc")
+      [eq: "aa ", del: "bb", ins: "cc"]
 
   """
-  def diff(string1, string2, :line) do
+  def diff_line(string1, string2) do
     string1
     |> String.split(@line_regex)
     |> remove_empty
