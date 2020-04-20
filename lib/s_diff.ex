@@ -3,7 +3,7 @@ defmodule SDiff do
   Documentation for `SDiff`.
   """
 
-  @word_regex ~r/(^\s+|[()[\]{}'"]|\b)/
+  @word_regex ~r/(^\s+|[()[]{}'"]|\b)/u
   @line_regex ~r/(^\n|\r\n|\b)/
   @doc """
   string diff with myers_difference.
@@ -47,7 +47,7 @@ defmodule SDiff do
       |> String.split(@word_regex)
       |> remove_empty
     )
-    |> Enum.map(fn {kind, chars} -> {kind, IO.iodata_to_binary(chars)} end)
+    |> Enum.map(fn {kind, string} -> {kind, IO.iodata_to_binary(string)} end)
   end
 
   @doc """
