@@ -40,12 +40,10 @@ defmodule SDiff do
   """
   def diff_word(string1, string2) do
     string1
-    |> String.split(@word_regex)
-    |> remove_empty
+    |> String.split(@word_regex, trim: true)
     |> List.myers_difference(
       string2
-      |> String.split(@word_regex)
-      |> remove_empty
+      |> String.split(@word_regex, trim: true)
     )
     |> Enum.map(fn {kind, string} -> {kind, IO.iodata_to_binary(string)} end)
   end
@@ -61,18 +59,11 @@ defmodule SDiff do
   """
   def diff_line(string1, string2) do
     string1
-    |> String.split(@line_regex)
-    |> remove_empty
+    |> String.split(@line_regex, trim: true)
     |> List.myers_difference(
       string2
-      |> String.split(@line_regex)
-      |> remove_empty
+      |> String.split(@line_regex, trim: true)
     )
     |> Enum.map(fn {kind, chars} -> {kind, IO.iodata_to_binary(chars)} end)
-  end
-
-  defp remove_empty(string_list) do
-    string_list
-    |> Enum.filter(&(String.length(&1) > 0))
   end
 end
